@@ -1,6 +1,6 @@
-import { createClientService, listClientsService } from "../services/clientServices"
+import { createClientService, deleteClientService, listClientsService, updateClientService } from "../services/clientServices"
 import { Request, Response } from "express"
-import { iCreateClientReq } from "../interfaces/clients/interfaces"
+import { iClientUpdate, iCreateClientReq } from "../interfaces/clients/interfaces"
 
 
 
@@ -18,5 +18,15 @@ export const listClientsController = async (req: Request, res: Response) => {
 
 
 export const updateClientController = async (req: Request, res: Response) => {
-    
+    const clientData: iClientUpdate = req.body
+    const clientToBePatched: string = req.params.id
+    const patchedUser = await updateClientService(clientToBePatched ,clientData)
+    return res.status(200).json(patchedUser)
+}
+
+
+export const deleteClientController = async (req:Request, res:Response) => {
+    const userToBeDeleted: string = req.params.id
+    const message = await deleteClientService(userToBeDeleted)
+    return res.status(204).json(message)
 }

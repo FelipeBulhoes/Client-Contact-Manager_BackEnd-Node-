@@ -4,8 +4,13 @@ import sessionRouter from "./routers/sessionRouter"
 import userRouter from "./routers/userRoutes"
 require('express-async-errors')
 
+//CORS
+const cors = require("cors")
+
+
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 app.use("/clients", userRouter)

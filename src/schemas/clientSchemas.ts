@@ -1,8 +1,8 @@
 import * as yup from 'yup'
-import { ObjectSchema } from 'yup'
+import { Schema } from 'yup'
 import { iCreateClientReq, iClientResponse } from '../interfaces/clients/interfaces'
 
-const createClientSchema: ObjectSchema<iCreateClientReq> = yup.object().shape({
+const createClientSchema: Schema<iCreateClientReq> = yup.object().shape({
     full_name: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().required(),
@@ -10,7 +10,7 @@ const createClientSchema: ObjectSchema<iCreateClientReq> = yup.object().shape({
 })
 
 
-const returnClientSchema: ObjectSchema<iClientResponse> = yup.object().shape({
+const returnClientSchema: Schema<iClientResponse> = yup.object().shape({
     id: yup.string(),
     full_name: yup.string(),
     email: yup.string().email(),

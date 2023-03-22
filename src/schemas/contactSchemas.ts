@@ -1,16 +1,16 @@
 import * as yup from "yup"
-import { ObjectSchema } from "yup"
+import { Schema } from "yup"
 import { iContactReq, iContactRes } from "../interfaces/contacts/interfaces"
 
 
-const createContactSchema: ObjectSchema<iContactReq> = yup.object().shape({
+const createContactSchema: Schema<iContactReq> = yup.object().shape({
     full_name: yup.string().required(),
     email: yup.string().email().required(),
     phone: yup.number().required()
 })
 
 
-const returnContactSchema: ObjectSchema<iContactRes> = yup.object().shape({
+const returnContactSchema: Schema<iContactRes> = yup.object().shape({
     id: yup.string(),
     full_name: yup.string(),
     email: yup.string().email(),

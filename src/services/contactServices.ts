@@ -4,7 +4,9 @@ import { Client } from "../entities/clientEntity";
 import { AppError } from "../errors/appError";
 import { iContactReq, iContactRes } from "../interfaces/contacts/interfaces";
 import { returnContactSchema } from "../schemas/contactSchemas";
-
+import { Secret } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+import 'dotenv/config'
 
 export const createContactService = async (ownerClient:string, clientData:iContactReq): Promise<iContactRes> => {
     const clientRepo = AppDataSource.getRepository(Client)
@@ -31,8 +33,33 @@ export const createContactService = async (ownerClient:string, clientData:iConta
     return returnedContact
 }
 
-/* FAZER MIDDLEWARE DE AUTH PARA PEGAR USER DO TOKEN
-export listClientContactsService = async (): Promise<iContactRes[]> => {
-    const contactRepo = AppDataSource.getRepository(Contact)
+export const listClientContactsService = async (contactToken: string): Promise<iContactRes[]> => {
+    let clientIdentifier = ""
 
-}*/
+    contactToken = contactToken.split(" ")[1]
+
+    jwt.verify(contactToken, process.env.SECRET_KEY as Secret, (error, decoded:any) => {
+        if (error){
+            throw new AppError("Auth error", 401)
+        }
+
+        clientIdentifier = decoded.sub
+    })
+    console.log(clientIdentifier)
+    
+    /*
+    const contactsRepo = AppDataSource.getRepository(Contact)
+    const contacts = contactsRepo.findBy({client: !clientIdentifier})
+
+    return contacts*/
+
+    
+    const contacts = await AppDataSource
+        .createQueryBuilder()
+        .select("contact")
+        .from(Contact, "contact")
+        .where("contact.client = :id", {id: clientIdentifier})
+        .getMany()
+
+    return contacts
+}

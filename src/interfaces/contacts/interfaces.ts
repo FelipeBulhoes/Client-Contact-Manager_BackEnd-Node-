@@ -11,7 +11,7 @@ interface iContactRes {
     full_name?: string | undefined,
     email?: string | undefined,
     phone?: number | undefined,
-    createdAt?: string | undefined
+    createdAt?: string | undefined | Date
 }
 
 export {iContactReq, iContactRes}

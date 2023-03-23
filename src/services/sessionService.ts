@@ -25,7 +25,9 @@ export const sessionService = async (credentials:iSessionCredentials): Promise<s
 
     const token = jwt.sign(
         {
-            email: client.email
+            email: client.email,
+            name: client.full_name,
+            phone: client.phone
         },
         process.env.SECRET_KEY as string,
         {

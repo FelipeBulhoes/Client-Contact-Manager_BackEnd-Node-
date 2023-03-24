@@ -1,3 +1,4 @@
+import { Client } from "../../entities/clientEntity"
 
 export interface iClientResponse {
     full_name?: string | undefined,
@@ -29,6 +30,11 @@ export interface iClientUpdate {
 
 export interface iMessage {
     message: string
+}
+
+export interface iSessionReturn {
+    token: string,
+    client: Client
 }
 
 

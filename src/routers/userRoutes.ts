@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createClientController, deleteClientController, listClientsController, updateClientController } from "../controllers/clientControllers";
-import { createContactController, listClientContactsController } from "../controllers/contactControllers";
+import { createContactController, deleteContactController, editContactController, listClientContactsController } from "../controllers/contactControllers";
 import { ensureAuth } from "../middlewares/ensureAuth";
 import ensureDataStructureMiddleware from "../middlewares/ensureDataStructure";
 import {createClientSchema} from "../schemas/clientSchemas"
@@ -15,6 +15,8 @@ userRouter.delete("/:id", ensureAuth, deleteClientController)
 
 userRouter.post("/contacts/add/:id", ensureAuth, ensureDataStructureMiddleware(createContactSchema), createContactController)
 userRouter.get("/contacts", ensureAuth, listClientContactsController)
+userRouter.patch("/contacts/edit/:id", ensureAuth, editContactController)
+userRouter.delete("/contacts/delete/:id", ensureAuth, deleteContactController)
 
 
 export default userRouter

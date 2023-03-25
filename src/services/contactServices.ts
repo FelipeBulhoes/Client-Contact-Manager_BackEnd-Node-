@@ -2,7 +2,8 @@ import { AppDataSource } from "../data-source";
 import { Contact } from "../entities/contactEntity";
 import { Client } from "../entities/clientEntity";
 import { AppError } from "../errors/appError";
-import { iContactReq, iContactRes } from "../interfaces/contacts/interfaces";
+import { iContactReq, iContactRes, iContactEdit, } from "../interfaces/contacts/interfaces";
+import { iMessage } from "../interfaces/clients/interfaces";
 import { returnContactSchema } from "../schemas/contactSchemas";
 import { Secret } from "jsonwebtoken";
 import jwt from "jsonwebtoken";
@@ -46,12 +47,6 @@ export const listClientContactsService = async (contactToken: string): Promise<i
         clientIdentifier = decoded.sub
     })
     console.log(clientIdentifier)
-    
-    /*
-    const contactsRepo = AppDataSource.getRepository(Contact)
-    const contacts = contactsRepo.findBy({client: !clientIdentifier})
-
-    return contacts*/
 
     
     const contacts = await AppDataSource
@@ -62,4 +57,46 @@ export const listClientContactsService = async (contactToken: string): Promise<i
         .getMany()
 
     return contacts
+}
+
+export const editClientContactService = async (contactId: string, data: iContactEdit): Promise<iContactEdit> => {
+    const contactRepo = AppDataSource.getRepository(Contact)
+    const contact = await contactRepo.findOneBy({id: contactId})
+
+    if (!contact) {
+        throw new AppError("Contact not found", 404)
+    }
+
+    if (data.full_name) {
+        contact.full_name = data.full_name
+    }
+    if (data.email) {
+        contact.email = data.email
+    }
+    if (data.phone) {
+        contact.phone = data.phone
+    }
+
+    await contactRepo.save(contact)
+
+    const returnedContact = await returnContactSchema.validate(contact, {
+        stripUnknown: true
+    })
+
+    return returnedContact
+
+}
+
+
+export const deleteContactService = async(contactId: string): Promise<iMessage> => {
+    const contactRepo = AppDataSource.getRepository(Contact)
+    const contact = await contactRepo.findOneBy({id: contactId})
+
+    if(!contact) {
+        throw new AppError('Contact not found', 404)
+    }
+
+    contactRepo.delete({id: contactId})
+
+    return {message: "Contact deleted successfully!"}
 }

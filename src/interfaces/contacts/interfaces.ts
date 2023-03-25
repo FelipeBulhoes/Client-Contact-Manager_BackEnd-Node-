@@ -14,4 +14,10 @@ interface iContactRes {
     createdAt?: string | undefined | Date
 }
 
-export {iContactReq, iContactRes}
+interface iContactEdit {
+    full_name?: string | undefined,
+    email?: string | undefined,
+    phone?: number | undefined
+}
+
+export {iContactReq, iContactRes, iContactEdit}

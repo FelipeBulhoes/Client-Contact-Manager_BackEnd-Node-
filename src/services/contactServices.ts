@@ -1,7 +1,7 @@
 import { AppDataSource } from "../data-source";
 import { Contact } from "../entities/contactEntity";
 import { Client } from "../entities/clientEntity";
-import { AppError } from "../errors/appError";
+import AppError from "../errors/appError";
 import { iContactReq, iContactRes, iContactEdit, } from "../interfaces/contacts/interfaces";
 import { iMessage } from "../interfaces/clients/interfaces";
 import { returnContactSchema } from "../schemas/contactSchemas";

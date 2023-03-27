@@ -2,7 +2,7 @@
 import { iCreateClientReq, iClientResponse, iClientUpdate, iMessage } from "../interfaces/clients/interfaces"
 import { AppDataSource } from "../data-source"
 import { Client } from "../entities/clientEntity"
-import { AppError } from "../errors/appError"
+import AppError from "../errors/appError"
 import { returnClientSchema } from "../schemas/clientSchemas"
 
 export const createClientService = async (data:iCreateClientReq): Promise<iClientResponse> => {

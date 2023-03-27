@@ -2,7 +2,7 @@ import { AppDataSource } from "../data-source";
 import { Client } from "../entities/clientEntity";
 import { iSessionCredentials } from "../interfaces/clients/interfaces";
 import { iSessionReturn } from "../interfaces/clients/interfaces";
-import { AppError } from "../errors/appError";
+import AppError from "../errors/appError";
 import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import 'dotenv/config';

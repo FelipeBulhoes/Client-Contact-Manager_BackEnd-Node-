@@ -35,3 +35,6 @@ Run server
 ```
 npm run dev || yarn dev 
 ```
+### Tech Stack
+Backend: Node, Express and PostgreSQL
+Frontend: React, styled-components, router, yup, hook-form and Typescript

@@ -4,8 +4,8 @@ import { sessionService } from "../services/sessionService";
 
 const sessionController = async (req:Request, res:Response) => {
     const credentials: iSessionCredentials = req.body
-    const token = await sessionService(credentials)
-    return res.json({token})
+    const data = await sessionService(credentials)
+    return res.json(data)
 }
 
 export {sessionController}

@@ -18,6 +18,6 @@ export class Contact {
     @CreateDateColumn()
     createdAt: Date
 
-    @ManyToOne(() => Client)
+    @ManyToOne(() => Client, {onDelete: "CASCADE"})
     client: Client
 }

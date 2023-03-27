@@ -1,12 +1,13 @@
 import { AppDataSource } from "../data-source";
 import { Client } from "../entities/clientEntity";
 import { iSessionCredentials } from "../interfaces/clients/interfaces";
-import { AppError } from "../errors/appError";
+import { iSessionReturn } from "../interfaces/clients/interfaces";
+import AppError from "../errors/appError";
 import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import 'dotenv/config';
 
-export const sessionService = async (credentials:iSessionCredentials): Promise<string> => {
+export const sessionService = async (credentials:iSessionCredentials): Promise<iSessionReturn> => {
     const clientRepo = AppDataSource.getRepository(Client)
 
     const client = await clientRepo.findOneBy({
@@ -25,7 +26,9 @@ export const sessionService = async (credentials:iSessionCredentials): Promise<s
 
     const token = jwt.sign(
         {
-            email: client.email
+            email: client.email,
+            name: client.full_name,
+            phone: client.phone
         },
         process.env.SECRET_KEY as string,
         {
@@ -34,5 +37,5 @@ export const sessionService = async (credentials:iSessionCredentials): Promise<s
         }
     )
 
-    return token
+    return {token: token, client: client}
 }

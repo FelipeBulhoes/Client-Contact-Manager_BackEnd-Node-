@@ -18,6 +18,11 @@ Install project dependencies
 npm install || yarn
 ```
 
+##Connect to the database
+Create a postgreSQL database in your psql terminal.
+```
+CREATE DATABASE <database_name>;
+```
 Create a .env file based on the .envexample file
 
 On the field DATABASE_URL write the following line changing marked data to your database data

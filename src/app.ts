@@ -1,8 +1,8 @@
+import "express-async-errors"
 import express from "express"
 import handleError from "./errors/handleError"
 import sessionRouter from "./routers/sessionRouter"
 import userRouter from "./routers/userRoutes"
-require('express-async-errors')
 
 //CORS
 const cors = require("cors")

@@ -18,7 +18,7 @@ Install project dependencies
 npm install || yarn
 ```
 
-##Connect to the database
+## Connect to the database
 Create a postgreSQL database in your psql terminal.
 ```
 CREATE DATABASE <database_name>;
